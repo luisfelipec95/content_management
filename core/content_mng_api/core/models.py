@@ -4,6 +4,8 @@ from django.db.models import Model
 class Category(Model):
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=500)
+    def __str__(self) -> str:
+        return f'{self.name},{self.description}'
 
 class Tag(Model):
     title = models.CharField(max_length=100)
