@@ -82,13 +82,29 @@
 
 <script>
 export default {
+  head() {
+    return {
+      title: 'Content Management | Home',
+      meta:[
+        {
+          hid: "description",
+          name: 'description',
+          content: 'Prueba técnica Nuevosmedios'
+        }
+        
+      ],
+      htmlAttrs: {
+        lang: 'es'
+      }
+    }
+  },
   name: 'IndexPage',
   mounted: function() {
     this.getCategories();
   },
   methods: {
     getCategories(){
-      this.$axios.$get('/categories/', {withCredentials: false})
+      this.$axios.$get('/categories/')
       .then(result => {
         console.log(result);
       });
