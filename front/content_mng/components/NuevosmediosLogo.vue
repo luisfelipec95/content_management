@@ -1,9 +1,9 @@
 <template>
-  <img class="vuetify-logo" alt="Vuetify Logo" src="/vuetify-logo.svg" />
+  <img class="nuevosmedios-logo" alt="Nuevosmedios Logo" src="/nuevosmedios-logo.png" />
 </template>
 
 <style>
-.vuetify-logo {
+.nuevosmedios-logo {
   height: 180px;
   width: 180px;
   transform: rotateY(560deg);

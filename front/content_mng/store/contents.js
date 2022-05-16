@@ -1,0 +1,52 @@
+import Fuse from 'fuse.js'
+
+const options = {
+    distance: 0,
+    keys: [
+        "name",
+        "description"
+    ]
+};
+
+
+export const state = () => ({
+    contents: [],
+    contentsSearch: [],
+    fuse: null,
+})
+  
+export const getters = {
+    getContents(state) {
+        return state.contentsSearch;
+    },    
+}
+
+export const mutations = {
+    updateContents(state, contents) {
+        state.contents = contents;
+        state.contentsSearch = state.contents;
+    },
+    updateFuseEngine(state, contents) {
+        state.fuse = new Fuse(contents, options)
+    },
+    filterContents(state, pattern) {
+        if(!pattern)
+            state.contentsSearch = state.contents;
+        else {
+            let result = state.fuse.search(pattern);
+            state.contentsSearch = result.map(r => r.item );
+            console.log( state.contentsSearch);
+        }
+        
+        //console.log(state.fuse.search(pattern));
+    }
+}
+
+export const actions = {
+    async fetchContents(context) {
+        let contents =  await this.$axios.$get('/categories/')
+        context.commit('updateContents', contents)
+        context.commit('updateFuseEngine', contents)
+        //console.log(contents)
+    }
+}
