@@ -13,18 +13,26 @@ export const state = () => ({
     contents: [],
     contentsSearch: [],
     fuse: null,
+    currentCategory: '',
 })
   
 export const getters = {
     getContents(state) {
         return state.contentsSearch;
-    },    
+    },
+    getCategory(state) {
+        return state.currentCategory;
+    }
 }
 
 export const mutations = {
     updateContents(state, contents) {
         state.contents = contents;
         state.contentsSearch = state.contents;
+    },
+    updateCategory(state, category) {
+        console.log(category);
+        state.currentCategory = category;
     },
     updateFuseEngine(state, contents) {
         state.fuse = new Fuse(contents, options)
@@ -44,9 +52,9 @@ export const mutations = {
 
 export const actions = {
     async fetchContents(context) {
-        let contents =  await this.$axios.$get('/categories/')
+        let contents = await this.$axios.$get('/categories/')
         context.commit('updateContents', contents)
         context.commit('updateFuseEngine', contents)
-        //console.log(contents)
+        context.commit('updateCategory', contents[0].name)
     }
 }
